@@ -38,11 +38,11 @@ Each component’s configuration and dependencies are described, along with how 
 
 ## Overview
 
-This pipeline captures each ShinyProxy user event—login, logout, app start, and app stop—and writes it directly into InfluxDB. Grafana then queries InfluxDB every 10 seconds to visualize usage metrics and session durations (calculated via start/stop timestamps).
+This pipeline captures each ShinyProxy user event—login, logout, app start, and app stop—and writes it directly into InfluxDB. Grafana then queries InfluxDB every 10 seconds to visualize usage metrics and session durations (calculated via start/stop timestamps) via custom InfluxQL queries.
 
 - **ShinyProxy** pushes usage entries to InfluxDB using the `usage-stats` block in `application.yml`.
-- **InfluxDB** stores events in the `shinyproxy_usagestats` database, `event` measurement.
-- **Grafana** runs in Docker and connects to InfluxDB as a data source, with dashboards built manually in the UI.
+- **InfluxDB** stores events in the `shinyproxy_usagestats` database, specifically within the `event` table.
+- **Grafana** runs in Docker and connects InfluxDB as a data source, with dashboards built manually in the UI.
 
 ## Architecture Diagram
 
