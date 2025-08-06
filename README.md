@@ -3,7 +3,7 @@
 
 This README documents in detail how to set up and maintain the usage‑statistics pipeline comprised of:
 
-1. **ShinyProxy** (native JAR)
+1. __ShinyProxy__ (native JAR)
 2. **InfluxDB** (v1.8.10, installed via .deb)
 3. **Docker‑Compose** services for Grafana and demo apps (nginx & Redmine)
 
