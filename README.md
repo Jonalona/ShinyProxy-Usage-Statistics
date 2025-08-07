@@ -132,7 +132,7 @@ java -jar shinyproxy-3.1.1.jar --spring.config.location=application.yml
          |> yield(name: "usage_by_user_and_app")
        ```
        ![alt text](/flux-queries/aggregate_time_by_user.png)
-
+   - /flux-queries/aggregate_time_by_user.flux
 ---
 
 ## Usage & Queries
