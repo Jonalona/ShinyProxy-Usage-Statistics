@@ -66,7 +66,14 @@ This pipeline captures each ShinyProxy user event—login, logout, app start, an
 ## InfluxDB Installation & Configuration
 [Link to official ShinyProxy usage statistics](https://shinyproxy.io/documentation/usage-statistics/#influxdb)
 
-### 1. Start the database
+### 1. Configure `influxdb.conf`
+
+- We need to modify two lines in the default config at `/etc/influxdb/influxdb.conf`. By default, InfluxDB does not allow us to use the Flux query language (not to be confused with InfluxQL). The queries provided in `/flux-queries` use the Flux query language.
+  - Commented lines indicate that those settings are used by default. To explicitly make InfluxDB do something else, we can uncomment a line to overide default settings.
+  - Under `[http]`:
+     - Find the commented settings `flux-enabled' and `flux-log-enabled`, uncomment them, and change their bool values to `true`
+    
+### 2. Create the database and table
 
 ```bash
 # From project root:
@@ -81,23 +88,16 @@ influx
 CREATE DATABASE shinyproxy_usagestats
 quit
 ```
-### 2. Configure `influxdb.conf`
 
-- Replace the default config at `/etc/influxdb/influxdb.conf` with the provided `influxdb.conf`.
-- Key settings:
-  - `bind-address = ":8086"` (HTTP API)
-  - Retention, monitoring, and write settings (see the file for full defaults).
+
+### 3. To view the InfluxDB data
 
 ```bash
-sudo cp path/to/influxdb.conf /etc/influxdb/influxdb.conf
-sudo systemctl restart influxdb
-```
+# This shows you all the tables in InfluxDB. ShinyProxy usage statistics are stored in the table `event`.
+influx -database shinyproxy_usagestats -execute "SHOW MEASUREMENTS"
 
-### 3. Create the database
-
-```bash
-# Ensure InfluxDB is running
-influx -execute "CREATE DATABASE \"shinyproxy_usagestats\""
+# This shows you all the entries that ShinyProxy has logged in InfluxDB.
+influx -database shinyproxy_usagestats        -execute "SELECT * FROM \"event\" LIMIT 300"
 ```
 
 - Database: `shinyproxy_usagestats`
