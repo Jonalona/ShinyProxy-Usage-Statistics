@@ -1,13 +1,16 @@
-Native ShinyProxy Usage Stats Pipeline
-
+# ShinyProxy Usage Stats Pipeline
+---
 This README documents in detail how to set up and maintain the usage‑statistics pipeline comprised of:
 
-1. **ShinyProxy** (native JAR)  
+1. **ShinyProxy** (native JAR)
+   ShinyProxy is an application that acts as a homepage to run Docker containers from.
    Inside ShinyProxy, you can launch two Docker-containerized apps:  
    - **Nginx**  
    - **Redmine**
-2. **InfluxDB** (v1.8.10, installed via .deb)
-3. **Grafana** services for Grafana and demo apps (nginx & Redmine)
+3. **InfluxDB** (v1.8.10, installed via .deb)
+   - Database to store ShinyProxy useage statistics
+4. **Grafana** services for Grafana and demo apps (nginx & Redmine)
+   Application to visualize data pulled from InfluxDB
 
 Each component’s configuration and dependencies are described, along with how they interconnect and where to find key files.
 
