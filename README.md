@@ -71,7 +71,7 @@ This pipeline captures each ShinyProxy user event—login, logout, app start, an
 - We need to modify two lines in the default config at `/etc/influxdb/influxdb.conf`. By default, InfluxDB does not allow us to use the Flux query language (not to be confused with InfluxQL). The queries provided in `/flux-queries` use the Flux query language.
   - Commented lines indicate that those settings are used by default. To explicitly make InfluxDB do something else, we can uncomment a line to overide default settings.
   - Under `[http]`:
-     - Find the commented settings `flux-enabled' and `flux-log-enabled`, uncomment them, and change their bool values to `true`
+     - Find the commented settings `flux-enabled` and `flux-log-enabled`, uncomment them, and change their bool values to `true`
     
 ### 2. Create the database and table
 
