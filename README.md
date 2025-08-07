@@ -114,7 +114,27 @@ java -jar shinyproxy-3.1.1.jar --spring.config.location=application.yml
 3. **Dashboards**
    - To add a dashboard, start a new project in Grafana and select the above data source. Add a Flux query, and select premade dashboards to visualize them.
    - Flux commands can be found in `/flux-queries`
-      - (Dashboards are configured manually in the Grafana UI.)
+      - `/flux-queries/aggregate_time_by_user.flux`
+         -
+         ```bash
+           from(bucket: "shinyproxy_usagestats")
+             |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+             |> filter(fn: (r) =>
+                 r._measurement == "event" and
+                 (r.type == "ProxyStart" or r.type == "ProxyStop")
+               )
+             |> group(columns: ["username"])
+             |> sort(columns: ["_time"])
+             |> elapsed(unit: 1s)
+             |> filter(fn: (r) => r.type == "ProxyStop")
+             |> sum(column: "elapsed")
+           
+             // ← add this to merge all your tables into one
+             |> group()
+           
+             |> yield(name: "usage_by_user_and_app")
+           ```
+
 
 ---
 
