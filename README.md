@@ -37,7 +37,7 @@ Each component’s configuration and dependencies are described, along with how 
 ---
 
 ## InfluxDB Installation & Configuration
-[Link to official ShinyProxy usage statistics](https://shinyproxy.io/documentation/usage-statistics/#influxdb)
+[Link to official ShinyProxy usage statistics setup](https://shinyproxy.io/documentation/usage-statistics/#influxdb) Mine is much more comprehensive though ;)
 
 ### 1. Configure `influxdb.conf`
 
