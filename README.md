@@ -86,6 +86,8 @@ influx -database shinyproxy_usagestats        -execute "SELECT * FROM \"event\" 
       - For instance, 'jonah' and 'password' is a valid login.
    - `proxy.usage-stats` defines how usage stats are exposed for InfluxDB to record them.
       - `proxy.usage-stats.url : http://localhost:8086/write?db=shinyproxy_usagestats`. This config line tells ShinyProxy to write useage stats to the local host port 8086, and specifically to the InfluxDB database `shinyproxy_usagestats`.
+   - `proxy.port' defines what port on the local machine ShinyProxy can be accessed on once running. Set to `8081`
+      - Go to `http://localhost:8081/`
 
 ### Running the JAR
 
