@@ -1,5 +1,7 @@
 # ShinyProxy Usage Stats Pipeline
 ---
+## Overview
+
 This README documents in detail how to set up and maintain the usage‑statistics pipeline comprised of:
 
 1. **ShinyProxy** (native JAR)\
@@ -10,19 +12,10 @@ This README documents in detail how to set up and maintain the usage‑statistic
 3. **InfluxDB** (v1.8.10, installed via .deb)
    - Database to store ShinyProxy useage statistics
 4. **Grafana** services for Grafana and demo apps (nginx & Redmine)
-   Application to visualize data pulled from InfluxDB
+   Application to visualize dashboards of data pulled from InfluxDB
 
 Each component’s configuration and dependencies are described, along with how they interconnect and where to find key files.
 
----
-
-## Overview
-
-This pipeline captures each ShinyProxy user event—login, logout, app start, and app stop—and writes it directly into InfluxDB. Grafana then queries InfluxDB every 10 seconds to visualize usage metrics and session durations (calculated via start/stop timestamps) via custom InfluxQL queries.
-
-- **ShinyProxy** pushes usage entries to InfluxDB using the `usage-stats` block in `application.yml`.
-- **InfluxDB** stores events in the `shinyproxy_usagestats` database, specifically within the `event` table.
-- **Grafana** runs in Docker and connects InfluxDB as a data source, with dashboards built manually in the UI.
 
 ## Architecture Diagram  
 ### Along with commands to start ShinyProxy and Grafana, and the URLs to see them running.
