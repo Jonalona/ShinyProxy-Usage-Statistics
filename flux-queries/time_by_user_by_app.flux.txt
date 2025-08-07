@@ -1,0 +1,25 @@
+from(bucket: "shinyproxy_usagestats")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) =>
+      r._measurement == "event" and
+      (r.type == "ProxyStart" or r.type == "ProxyStop")
+    )
+  |> group(columns: ["username", "_value"])
+  |> sort(columns: ["_time"])
+  |> elapsed(unit: 1s, columnName: "session_duration")
+  |> filter(fn: (r) => r.type == "ProxyStop")
+  |> group(columns: ["username", "_value"])
+  |> aggregateWindow(every: inf, fn: sum, column: "session_duration", createEmpty: false)
+  |> map(fn: (r) => ({
+      username:          r.username,
+      app:               r._value,
+      total_duration_s:  r.session_duration
+    }))
+  // rename 'app' → "User's aggregate time per app" and 'total_duration_s' → "seconds"
+  |> rename(columns: {
+       app:              "User's aggregate time per app",
+       total_duration_s: "seconds"
+     })
+  // keep username plus your two new column names
+  |> keep(columns: ["username", "User's aggregate time per app", "seconds"])
+  |> yield(name: "total_time_per_user_per_app")

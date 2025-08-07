@@ -1,0 +1,13 @@
+from(bucket shinyproxy_usagestats)
+   range(start v.timeRangeStart, stop v.timeRangeStop)
+   filter(fn (r) =
+      r._measurement == event and
+      (r.type == ProxyStart or r.type == ProxyStop)
+    )
+   group(columns [username])
+   sort(columns [_time])
+   elapsed(unit 1s)
+   filter(fn (r) = r.type == ProxyStop)
+   sum(column elapsed)
+   group()
+   yield(name usage_by_user_and_app)
