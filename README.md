@@ -14,29 +14,6 @@ This README documents in detail how to set up and maintain the usage‑statistic
 
 Each component’s configuration and dependencies are described, along with how they interconnect and where to find key files.
 
-
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Architecture Diagram](#architecture-diagram)
-3. [Prerequisites](#prerequisites)
-4. [InfluxDB Installation & Configuration](#influxdb-installation--configuration)
-   - Install .deb
-   - Configure `influxdb.conf`
-   - Create the database
-5. [ShinyProxy Configuration](#shinyproxy-configuration)
-   - `application.yml` snippet for usage stats
-   - Running the JAR
-6. [Docker‑Compose Services](#docker-compose-services)
-   - Grafana
-   - Demo Apps (nginx, Redmine)
-   - Networking details
-7. [Grafana Setup](#grafana-setup)
-   - Data source connection
-   - Dashboards (TODO)
-8. [Usage & Queries](#usage--queries)
-9. [Troubleshooting & Maintenance](#troubleshooting--maintenance)
-
 ---
 
 ## Overview
