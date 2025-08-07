@@ -114,7 +114,7 @@ java -jar shinyproxy-3.1.1.jar --spring.config.location=application.yml
 3. **Dashboards**
    - To add a dashboard, start a new project in Grafana and select the above data source. Add a Flux query, and select premade dashboards to visualize them.
    - Flux commands can be found in `/flux-queries`
-     - `/flux-queries/aggregate_time_by_user.flux`. Returns, per user, the total aggregate duration (in seconds) during which any ShinyProxy apps were active:
+     - `/flux-queries/aggregate_time_by_user.flux`. Returns, per user, the total aggregate duration (in seconds) during which any ShinyProxy apps were active. Here's the Flux query along with two ways to visualize the same data:
      
        ```bash
        from(bucket: "shinyproxy_usagestats")
@@ -132,7 +132,9 @@ java -jar shinyproxy-3.1.1.jar --spring.config.location=application.yml
          |> yield(name: "usage_by_user_and_app")
        ```
        ![alt text](/flux-queries/aggregate_time_by_user.png)
-   - /flux-queries/aggregate_time_by_user.flux
+       ![alt text](/flux-queries/aggregate_time_by_user_piechart.png)
+   - `/flux-queries/time_by_user_by_app.flux`
+   - ![alt text](/flux-queries/time_by_user_by_app.png)
 ---
 
 ## Usage & Queries
