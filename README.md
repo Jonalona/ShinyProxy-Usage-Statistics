@@ -133,7 +133,7 @@ java -jar shinyproxy-3.1.1.jar --spring.config.location=application.yml
        ```
        ![alt text](/flux-queries/aggregate_time_by_user.png)
        ![alt text](/flux-queries/aggregate_time_by_user_piechart.png)
-   - `/flux-queries/time_by_user_by_app.flux`
+   - `/flux-queries/time_by_user_by_app.flux` This queries for aggregate time per app, per user. If visualizing through a Grafana table (as seen below), you can select which user's info you want to actively view.
    - ![alt text](/flux-queries/time_by_user_by_app.png)
 ---
 
