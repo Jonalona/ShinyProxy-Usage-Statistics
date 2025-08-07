@@ -44,8 +44,8 @@ This pipeline captures each ShinyProxy user event—login, logout, app start, an
 - **InfluxDB** stores events in the `shinyproxy_usagestats` database, specifically within the `event` table.
 - **Grafana** runs in Docker and connects InfluxDB as a data source, with dashboards built manually in the UI.
 
-## Architecture Diagram
-
+## Architecture Diagram  
+### Along with commands to start ShinyProxy and Grafana, and the URLs to see them running.
 
 ![alt text](/excalidraw-diagram/diagram.png)
 
@@ -64,15 +64,23 @@ This pipeline captures each ShinyProxy user event—login, logout, app start, an
 ---
 
 ## InfluxDB Installation & Configuration
+[Link to official ShinyProxy usage statistics](https://shinyproxy.io/documentation/usage-statistics/#influxdb)
 
-### 1. Install via `.deb`
+### 1. Start the database
 
 ```bash
 # From project root:
-sudo dpkg -i influxdb_1.8.10_amd64.deb
-sudo apt-get install -f    # install any missing dependencies
+sudo service influxdb start
+# Make sure its running
+sudo service influxdb status
 ```
-
+In order to store the usage statistics, a specific database needs to be created on the InfluxDB instance. In this example we use the name `shinyproxy_usagestats`.
+```bash
+influx
+# Then, once in the database prompt, enter:
+CREATE DATABASE shinyproxy_usagestats
+quit
+```
 ### 2. Configure `influxdb.conf`
 
 - Replace the default config at `/etc/influxdb/influxdb.conf` with the provided `influxdb.conf`.
