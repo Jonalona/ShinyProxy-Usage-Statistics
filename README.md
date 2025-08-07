@@ -74,7 +74,7 @@ influx -database shinyproxy_usagestats        -execute "SELECT * FROM \"event\" 
 ```
 
 - Database: `shinyproxy_usagestats`
-- Measurement: `event` (fields: `data`, `type`, `username`)
+- Measurement: `event` (fields: `data`, `type`, `username`, `time`)
 
 ---
 
