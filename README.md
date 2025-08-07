@@ -99,51 +99,22 @@ java -jar shinyproxy-3.1.1.jar --spring.config.location=application.yml
 
 ---
 
-## Docker‑Compose Services
-
-The `docker-compose.yml` in the `shinyproxy-native-demo` directory defines Grafana and the two demo containers.
-
-```yaml
-version: '3.7'
-
-services:
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    ports:
-      - "3001:3000"
-    volumes:
-      - grafana-data:/var/lib/grafana
-    networks:
-      - shiny-monitoring
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-networks:
-  shiny-monitoring:
-
-volumes:
-  grafana-data:
-```
-
-- **Grafana** UI available at `http://localhost:3001`
-- **nginx-demo** and **redmine-app** launched via ShinyProxy but connected to the same Docker network (`shiny-monitoring`) for inter-container networking.
-
----
 
 ## Grafana Setup
-
-1. **Add Data Source**
-
+1. **Get it running**
+   The `docker-compose.yml` in the `shinyproxy-native-demo` directory defines Grafana. In the CLI, run `docker-compose up -d`.\UI available at `http://localhost:3001`.
+   
+2. **Add Data Source**
    - Type: InfluxDB
    - URL: `http://host.docker.internal:8086`
    - Database: `shinyproxy_usagestats`
+   - Query Language: `Flux`
    - (Auth disabled by default)
 
-2. **Dashboards**
-
-   - *(Dashboards are configured manually in the Grafana UI.)*
-   - **TODO:** Document each dashboard’s panels, panels’ InfluxQL queries, and folder structure.
+3. **Dashboards**
+   - To add a dashboard, start a new project in Grafana and select the above data source. Add a Flux query, and select premade dashboards to visualize them.
+   - Flux commands can be found in `/flux-queries`
+      - (Dashboards are configured manually in the Grafana UI.)
 
 ---
 
@@ -166,24 +137,4 @@ SELECT COUNT("type")
 ```
 
 ---
-
-## Troubleshooting & Maintenance
-
-- **InfluxDB not receiving writes?**
-
-  1. Verify ShinyProxy logs: look for HTTP 204 from `localhost:8086/write?db=...`
-  2. Confirm InfluxDB is listening on port 8086 (`netstat -tlnp`).
-
-- **Grafana data source errors?**
-
-  1. Ensure Docker network and `host.docker.internal` resolution.
-  2. Check Grafana logs (container logs via `docker logs grafana`).
-
-- **Upgrading InfluxDB**:
-
-  - Install new `.deb`, merge or review `influxdb.conf`, restart service.
-
----
-
-*End of README draft. Please review and let me know if any details are missing or need adjustment.*
 
