@@ -46,15 +46,8 @@ This pipeline captures each ShinyProxy user event—login, logout, app start, an
 
 ## Architecture Diagram
 
-*(Add or embed an architecture diagram here if available)*
 
-```
-User Browser → ShinyProxy (JAR, port 8081) → InfluxDB (local, port 8086) ← Grafana (Docker, port 3001)
-                         ↓                                       ↑
-                Demo Apps (nginx & Redmine)                     |
-                         ↓                                       |
-                Docker‑Compose Network ("shiny‑monitoring") ───┘
-```
+![alt text][/excalidraw-diagram/diagram.png]
 
 ---
 
