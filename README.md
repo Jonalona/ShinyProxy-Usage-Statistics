@@ -80,8 +80,12 @@ influx -database shinyproxy_usagestats        -execute "SELECT * FROM \"event\" 
 
 ## ShinyProxy Configuration
 
-### `application.yml` Usage‑Stats Snippet
-
+### `application.yml` is the config file for ShinyProxy.
+   - `proxy.specs` defines what images are to be pulled from Docker Hub and made available inside ShinyProxy.
+   - `proxy.users` defines username and password credentials for logging in.
+      - For instance, 'jonah' and 'password' is a valid login.
+   - `proxy.usage-stats` defines how usage stats are exposed for InfluxDB to record them.
+      - `proxy.usage-stats.url : http://localhost:8086/write?db=shinyproxy_usagestats`. This config line tells ShinyProxy to write useage stats to the local host port 8086, and specifically to the InfluxDB database `shinyproxy_usagestats`.
 ```yaml
 proxy:
   title: Native ShinyProxy with Metrics
