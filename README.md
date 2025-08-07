@@ -47,9 +47,9 @@ This pipeline captures each ShinyProxy user event—login, logout, app start, an
 ## Architecture Diagram
 
 
-![alt text][/excalidraw-diagram/diagram.png]
+![alt text](/excalidraw-diagram/diagram.png)
 
----
+
 
 ## Prerequisites
 
