@@ -1,0 +1,71 @@
+proxy:
+  # Appears in the browser title
+  title: Native ShinyProxy with Metrics
+  # Port for ShinyProxy to listen on
+  port: 8081
+  usage-stats:
+    - url: http://localhost:8086/write?db=shinyproxy_usagestats
+      attributes:
+        - name: username
+          expression: "#{authentication.name}"
+  # Use simple authentication with users defined below
+  authentication: simple
+  admin-groups: admins # Grant admin rights to users in the 'admins' group
+  container-warmup-time: 100000 #100 seconds
+  container-wait-retries: 30
+  container-wait-time: 900000
+  users:
+  - name: jack
+    password: password
+    groups: admins
+  - name: user
+    password: password
+  - name: jonah
+    password: password
+
+
+  # Define the apps that will appear in the list
+  specs:
+  - id: redmine-app
+    display-name: Redmine Test App (SQLite)
+    description: A self contained web app that will start without a database
+    container-image: redmine
+    port: 3000 #the internal port Redmine's webserver uses
+    container-env:
+      REDMINE_SECRET_KEY_BASE: "this-is-a-long-and-super-secret-key-for-testing"
+
+
+  - id: nginx-demo
+    display-name: Nginx Demo
+    description: A simple Nginx welcome page
+    container-image: nginxdemos/hello:latest
+    port: 80
+
+
+
+
+
+# Spring Boot Actuator settings to expose metrics
+management:
+  #server:
+    #port: -1
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    prometheus:
+      metrics:
+        export:
+          enabled: true
+
+# Optional: fine-tune logging
+logging:
+  level:
+    #org.springframework.security: DEBUG
+      #eu.openanalytics: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+    eu.openanalytics.containerproxy.service.UsageStatsService: DEBUG
